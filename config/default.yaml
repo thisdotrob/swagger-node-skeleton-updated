@@ -17,12 +17,16 @@ swagger:
       mockControllersDirs: [ api/mocks ]
       controllersDirs: [ api/controllers ]
 
+    _swagger_security:
+      name: swagger_security
+      securityHandlersModule: api/helpers/securityHandlers  # <= This is the relative path to your javascript module
+
     # pipe for all swagger-node controllers
     swagger_controllers:
       - onError: json_error_handler
       - cors
       - swagger_params_parser
-      - swagger_security
+      - _swagger_security
       - swagger_validator
       - express_compatibility
       - _router

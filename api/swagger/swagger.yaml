@@ -45,6 +45,13 @@ paths:
   /swagger:
     x-swagger-pipe: swagger_raw
 # complex objects have schema definitions
+security:
+  - apiKey: []
+securityDefinitions:
+  apiKey:
+    type: apiKey
+    name: name
+    in: query
 definitions:
   HelloWorldResponse:
     required:
