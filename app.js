@@ -17,6 +17,12 @@ Runner.create(config, function(err, runner) {
 
   swaggerExpress.register(app);
 
+  // install response validation listener (this will only be called if there actually are any errors or warnings)
+  swaggerExpress.runner.on('responseValidationError', function(validationResponse, request, response) {
+    // log your validationResponse here...
+    console.error(validationResponse.errors);
+  });
+
   var port = process.env.PORT || 10010;
 
   app.listen(port);
