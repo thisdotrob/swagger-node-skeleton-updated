@@ -5,7 +5,9 @@ var app = require('express')();
 module.exports = app; // for testing
 
 var config = {
-  appRoot: __dirname // required config
+  appRoot: __dirname, // required config
+  enforceUniqueOperationId: true, // enforces operationId uniqueness constraint in the schema
+  startWithWarnings: false // Start the server if Swagger has warnings
 };
 
 Runner.create(config, function(err, runner) {
