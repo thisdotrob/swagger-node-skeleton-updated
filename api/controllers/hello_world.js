@@ -25,7 +25,8 @@ var util = require('util');
   we specify that in the exports of this module that 'hello' maps to the function named 'hello'
  */
 module.exports = {
-  hello: hello
+  hello: hello,
+  helloPipe: helloPipe
 };
 
 /*
@@ -41,4 +42,24 @@ function hello(req, res) {
 
   // this sends back a JSON response which is a single string
   res.json(hello);
+}
+
+
+// Example of using a pipe as a controller, per release docs for 0.7.1 of swagger-node-runner
+// Please note this seems to bypass response validation.
+function helloPipe(ctx, next) {
+  var name = ctx.request.swagger.params.name.value || 'stranger';
+
+  var hello = util.format('Hello, %s!', name);
+
+  // This only works if the output is set to something other than 'output' for the _router fitting definition (bagpipes._router.output in default.yaml).
+  // Otherwise the Bagpipes module overrides the output property set on ctx below during postFlight:
+  // https://github.com/apigee-127/bagpipes/blob/master/lib/bagpipes.js#L208-L221
+  ctx.output = hello;
+
+  ctx.statusCode = 200;
+
+  ctx.headers = { 'content-type': 'application/json' };
+
+  next();
 }

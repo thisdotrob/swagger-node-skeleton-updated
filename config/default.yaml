@@ -16,6 +16,7 @@ swagger:
       mockMode: false
       mockControllersDirs: [ api/mocks ]
       controllersDirs: [ api/controllers ]
+      output: 'hack'
 
     _swagger_security:
       name: swagger_security
